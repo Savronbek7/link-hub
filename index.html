@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menig LinkHub'im</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500&family=Italianno&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            /* Fonga engil va chiroyli gradient (Rasmga mos ochiq ko'k-havo rang) */
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        /* Oq fondagi toza Card (karta) */
+        .card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 35px;
+            padding: 45px 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin-top: 5vh;
+        }
+
+        /* Avatar qismi */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-img-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%; /* Boshi va tanasi to'liqroq chiqishi uchun */
+        }
+
+        /* Twitter / Instagram style verified pichkasi */
+        .verified-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 32px;
+            height: 32px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .verified-badge svg {
+            width: 26px;
+            height: 26px;
+            fill: #1d9bf0; /* Twitter Verification Blue */
+        }
+
+        /* Matnlar */
+        .name {
+            font-family: 'Italianno', cursive;
+            font-size: 46px; /* Elegant shrift bo'lgani uchun kattaroq o'lcham kerak */
+            font-weight: 400;
+            color: #0f1419;
+            margin-bottom: 2px;
+            text-transform: capitalize;
+        }
+
+        .bio {
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            font-size: 16px;
+            font-weight: 500;
+            color: #536471;
+        }
+
+        /* Ijtimoiy tarmoq doiralari (Rasmda aynan shu qismi qora qilingan) */
+        .social-icons-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap; 
+        }
+
+        .social-circle {
+            width: 48px;
+            height: 48px;
+            background-color: #000000;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 20px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .social-circle:hover {
+            transform: scale(1.1);
+            background-color: #333333;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Profil va Rasm -->
+        <div class="profile-section">
+            <div class="avatar-container">
+                <div class="avatar-img-wrapper" id="avatarWrapper" style="cursor: pointer;" title="Rasmni yuklash uchun bosing">
+                    <img class="avatar" id="avatarImage" src="profile.jpg" alt="Profile Picture" onerror="this.onerror=null; this.style.display='none'; document.getElementById('uploadText').style.display='flex';">
+                    
+                    <!-- Rasm topilmasa yoki yuklash so'ralsa -->
+                    <div id="uploadText" style="display: none; width: 100%; height: 100%; background: #e1e8ed; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; color: #536471; font-weight: 600;">
+                        <i class="fas fa-camera" style="font-size: 22px; margin-bottom: 4px;"></i>
+                        Yuklash
+                    </div>
+                </div>
+                
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <!-- Tasdiqlangan (Verified) belgisi -->
+                <div class="verified-badge" title="Verified">
+                    <svg viewBox="0 0 24 24" aria-label="Verified">
+                        <path d="M22.5 12.5c0-.94-.31-1.82-.82-2.5.51-.68.82-1.56.82-2.5 0-2.28-1.85-4.13-4.13-4.13-.94 0-1.82.31-2.5.82-.68-.51-1.56-.82-2.5-.82-2.28 0-4.13 1.85-4.13 4.13 0 .94.31 1.82.82 2.5-.51.68-.82 1.56-.82 2.5 0 2.28 1.85 4.13 4.13 4.13.94 0 1.82-.31 2.5-.82.68.51 1.56.82 2.5.82 2.28 0 4.13-1.85 4.13-4.13zm-11.66 3.01l-4.18-4.18 1.55-1.55 2.63 2.63 8.16-8.16 1.55 1.55-9.71 9.71z"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Ism va Bio (Endi tasvirdagidek qora va jiddiy ranglarda) -->
+            <h1 class="name">SAVRONBEK</h1>
+            <p class="bio">Mening sahifalarim</p>
+        </div>
+
+        <!-- Ijtimoiy tarmoq piktogrammalari (Siz kiritgan vizualgidek dumaloq, qora fonli) -->
+        <div class="social-icons-row">
+            <a href="https://instagram.com/tarmoqhayoti" class="social-circle" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://t.me/TarmoqHayoti" class="social-circle" target="_blank" aria-label="Telegram">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+            <a href="https://x.com/savronbek_s" class="social-circle" target="_blank" aria-label="Twitter (X)">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://github.com/Savronbek7" class="social-circle" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Rasm yuklash va brauzer xotirasida saqlab qolish
+        const avatarImage = document.getElementById('avatarImage');
+        const avatarWrapper = document.getElementById('avatarWrapper');
+        const imageInput = document.getElementById('imageInput');
+        const uploadText = document.getElementById('uploadText');
+
+        // Agar avvalroq rasm yuklangan bo'lsa, o'shani orqaga qaytarish
+        const savedImage = localStorage.getItem('userAvatar');
+        if (savedImage) {
+            avatarImage.src = savedImage;
+            avatarImage.style.display = 'block';
+            uploadText.style.display = 'none';
+        }
+
+        avatarWrapper.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const b64 = e.target.result;
+                    avatarImage.src = b64;
+                    avatarImage.style.display = 'block';
+                    uploadText.style.display = 'none';
+                    try { 
+                        localStorage.setItem('userAvatar', b64); 
+                    } catch(err) {
+                        console.log("Rasm hajmi browser xotirasi uchun kattalik qildi, biroq ekranda ko'rinsa bo'ldi.");
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
